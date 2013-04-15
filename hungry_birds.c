@@ -1,6 +1,11 @@
 /*
- * to build:	gcc -g -Wall -lpthread -o hungry_birds hungry_birds.c
- * to run:	./hungry_birds
+ * hungry birds - an example of multi-thread application using the shared memory
+ *                model. A producer/consumer problem.
+ *
+ * author:        Paolo Rovelli <paolo.rovelli@ericsson.com>
+ *
+ * to build:	  gcc -g -Wall -lpthread -o hungry_birds hungry_birds.c
+ * to run:	  ./hungry_birds
  */
 
 #ifndef _REENTRANT
