@@ -62,8 +62,8 @@ void *bird_parent(void *arg)
 		sem_wait(&empty);
 		pthread_mutex_lock(&lock);
 		worms = NUM_WORMS;
-		pthread_mutex_unlock(&lock);
 		printf(" + bird parent brings %d worms\n\n", worms);
+		pthread_mutex_unlock(&lock);
 		for (i = 0; i < NUM_WORMS; i++)
 			 sem_post(&any);
 	}
@@ -77,13 +77,13 @@ void *bird_child(void *arg)
 		pthread_mutex_lock(&lock);
 		worms--;
 		if(worms != 0) {
-			pthread_mutex_unlock(&lock);
 			printf(" - bird child %d eats (remain worms %d)\n",
 				(int)arg, worms);
-		} else {
 			pthread_mutex_unlock(&lock);
+		} else {
 			printf(" - bird child %d eats (remain worms %d)"
 				" and screams\n\n", (int)arg, worms);
+			pthread_mutex_unlock(&lock);
 			sem_post(&empty);
 		}
 	}
