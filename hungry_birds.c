@@ -3,9 +3,6 @@
  *                model. A producer/consumer problem.
  *
  * author:        Paolo Rovelli <paolo.rovelli@ericsson.com>
- *
- * to build:	  gcc -g -Wall -lpthread -o hungry_birds hungry_birds.c
- * to run:	  ./hungry_birds
  */
 
 #ifndef _REENTRANT
