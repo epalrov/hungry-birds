@@ -5,18 +5,16 @@
  * author:        Paolo Rovelli <paolo.rovelli@ericsson.com>
  */
 
-#ifndef _REENTRANT
-#define _REENTRANT
-#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <semaphore.h>
 
-#define SHARED 1
-#define NUM_BIRDS 50
-#define NUM_WORMS 100
+#define SEM_SHARED 1
+
+#define NUM_BIRDS 7
+#define NUM_WORMS 13
 
 void *bird_parent(void *arg);
 void *bird_child(void *arg);
@@ -36,8 +34,8 @@ int main(int argc, char *argv[])
 
 	worms = NUM_WORMS;
 	printf("\n + intitial dish %d worms\n\n", worms);
-	sem_init(&empty, SHARED, 0);
-	sem_init(&any, SHARED, NUM_WORMS);
+	sem_init(&empty, SEM_SHARED, 0);
+	sem_init(&any, SEM_SHARED, NUM_WORMS);
 	pthread_mutex_init(&lock, NULL);
 
 	pthread_create(&pid, &attr, bird_parent, (void *) 0);
@@ -69,7 +67,7 @@ void *bird_parent(void *arg)
 void *bird_child(void *arg)
 {
 	while (1) {
-		sleep(rand()%10);
+		sleep(rand() % ((10*NUM_BIRDS)/NUM_WORMS));
 		sem_wait(&any);
 		pthread_mutex_lock(&lock);
 		worms--;

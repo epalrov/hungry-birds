@@ -1,10 +1,11 @@
+hungry-birds-threads
+hungry-birds-processes
+*.o
+.deps/
+Makefile
 Makefile.in
 aclocal.m4
 autom4te.cache/
 configure
-.deps/
-Makefile
 config.log
 config.status
-hungry-birds
-hungry_birds.o

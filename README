@@ -1,5 +1,5 @@
-hungry birds:   an example of multi-thread application using the shared memory
-                model. A producer/consumer problem.
+hungry birds:   examples of multi-thread and milti-process applications using
+                the shared memory model. A producer/consumer problem.
 
 author:         Paolo Rovelli
 contact:        paolo.rovelli@ericsson.com
