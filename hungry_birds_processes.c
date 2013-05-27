@@ -43,7 +43,8 @@ static void sigterm_handler(int signal)
 	int retval;
 	
 	/* Remove everything */
-	retval = shm_unlink(SHM_NAME) || munmap(shm, sizeof(*shm)) ||
+	retval = munmap(shm, sizeof(*shm)) ||
+		shm_unlink(SHM_NAME) ||
 		sem_unlink(SEM_NAME_EMPTY) ||
 		sem_unlink(SEM_NAME_ANY) ||
 		sem_unlink(SEM_NAME_LOCK);
@@ -69,6 +70,7 @@ void *parent_bird(void *arg)
 
 void *baby_bird(void *arg)
 {
+	srand((int)arg);
 	setbuf(stdout, NULL);
 	while (1) {
 		usleep(rand() % ((1000000*NUM_BIRDS)/NUM_WORMS + 1));
