@@ -4,7 +4,7 @@
 AC_PREREQ([2.67])
 AC_INIT([hungry-birds],
 	[1.0],
-	[paolo.rovelli@ericsson.com])
+	[paolorovelli@yahoo.it])
 AM_INIT_AUTOMAKE([hungry-birds],1.0)
 
 # Checks for programs.

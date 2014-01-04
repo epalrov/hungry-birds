@@ -1,8 +1,9 @@
 /*
- * hungry birds - an example of multi-thread application using the shared memory
- *                model. A producer/consumer problem.
+ * hungry_bird_threads.c - example of concurrent multi-thread application
  *
- * author:        Paolo Rovelli <paolo.rovelli@ericsson.com>
+ * Copyright (C) 2013 Paolo Rovelli
+ *
+ * Author: Paolo Rovelli <paolorovelli@yahoo.it>
  */
 
 #include <stdio.h>
