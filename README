@@ -1,5 +1,7 @@
 hungry birds:   examples of multi-thread and multi-process applications using
-                the shared memory model. A producer/consumer problem.
+                different programming languages (C, C++, Java, ...).
+                A typical producer/consumer problem solved with the shared
+		memory model.
 
 author:         Paolo Rovelli
 contact:        paolorovelli@yahoo.it

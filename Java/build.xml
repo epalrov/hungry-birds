@@ -1,0 +1,36 @@
+<project name="HungryBirds" basedir="." default="main">
+
+    <property name="src.dir"     value="."/>
+    <property name="build.dir"   value="bin"/>
+    <property name="classes.dir" value="classes"/>
+    <property name="jar.dir"     value="jar"/>
+    <property name="main-class"  value="HungryBirds"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${classes.dir}"/>
+        <delete dir="${jar.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+    </target>
+
+    <target name="main" depends="clean,jar"/>
+
+</project>
+
