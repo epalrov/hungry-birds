@@ -1,7 +1,16 @@
-hungry birds:   examples of multi-thread and multi-process applications using
-                different programming languages (C, C++, Java, ...).
-                A typical producer/consumer problem solved with the shared
-		memory model.
+project:        Hungry Birds
+
+description:    Examples of multi-thread and multi-process applications.
+
+                A typical producer/consumer problem implemented with the shared
+		memory model using different programming languages (C, C++,
+                Java, ...).
+
+build:          GNU Autotools are used as build system for the C and C++
+                implementations:
+                 - autoreconf && ./configure && make
+                Apache Ant is used as build system for the Java implementation:
+                 - ant build
 
 author:         Paolo Rovelli
 contact:        paolorovelli@yahoo.it
