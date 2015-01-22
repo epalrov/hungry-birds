@@ -43,7 +43,7 @@ void *baby_bird(void *arg)
 		sem_wait(&any);
 		pthread_mutex_lock(&lock);
 		worms--;
-		if(worms != 0) {
+		if (worms) {
 			printf(" - baby bird %d eats (dish: %d worms)\n",
 				(int)arg, worms);
 			pthread_mutex_unlock(&lock);
@@ -71,9 +71,9 @@ int main(int argc, char *argv[])
 
 	pthread_attr_init(&attr);
 	pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
-	pthread_create(&parent_tid, &attr, parent_bird, (void *) 0);
+	pthread_create(&parent_tid, &attr, parent_bird, (void *)0);
 	for (i = 0; i < NUM_BIRDS; i++)
-		pthread_create(&baby_tid[i], &attr, baby_bird, (void *) i);
+		pthread_create(&baby_tid[i], &attr, baby_bird, (void *)i);
 
 	pthread_join(parent_tid, NULL);
 	for (i = 0; i < NUM_BIRDS; i++)

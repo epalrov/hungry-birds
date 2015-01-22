@@ -1,0 +1,9 @@
+project:        Hungry Birds
+
+description:    Example of multi-thread and multi-process applications.
+
+build:          autoreconf && ./configure && make
+
+author:         Paolo Rovelli
+contact:        paolorovelli@yahoo.it
+
