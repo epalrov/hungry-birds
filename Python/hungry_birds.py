@@ -16,13 +16,13 @@ NUM_WORMS = 13
 def parent_bird():
     global worms
     while True:
-        empty_event.wait()
+        empty.acquire()
         with lock:
             try:
                 worms = NUM_WORMS
-                print " + Parent brings ", worms, " worms\n"
-                empty_event.clear()
-                any_event.set()
+                print " + parent bird brings", worms, "worms\n"
+                for i in range(NUM_WORMS):
+                    any.release()
             except:
                 print " x Exception!\n"
 
@@ -30,17 +30,16 @@ def baby_bird(id):
     global worms
     while True:
         time.sleep(random.random() * NUM_BIRDS/NUM_WORMS)
-        any_event.wait()
+        any.acquire()
         with lock:
             worms = worms - 1
             try:
                 if worms :
-                    print " - Bird ", id, " eats (dish: ", worms, " worms)"
+                    print " - baby bird", id, "eats (dish:", worms, "worms)"
                 else :
-                    print " - Bird ", id, " eats (dish: ", worms, " worms)" \
+                    print " - baby bird", id, "eats (dish:", worms, "worms)" \
                         " and screams\n"
-                    any_event.clear()
-                    empty_event.set()
+                    empty.release()
             except:
                 print " x Exception!\n"
 
@@ -48,19 +47,18 @@ if __name__ == "__main__":
 
     birds = []
     worms = NUM_WORMS
-    lock = threading.Lock()
-    any_event = threading.Event()
-    empty_event = threading.Event()
+    print "\n + intitial dish:", worms, "worms\n"
 
-    print "\n + intitial dish: ", worms, " worms\n"
-    any_event.set()
+    lock = threading.Lock()
+    empty = threading.Semaphore(0)
+    any = threading.Semaphore(NUM_WORMS)
 
     t = threading.Thread(target=parent_bird)
     t.start()
     birds.append(t)
 
-    for id in range(NUM_BIRDS):
-        t = threading.Thread(target=baby_bird, args=(id,))
+    for i in range(NUM_BIRDS):
+        t = threading.Thread(target=baby_bird, args=(i,))
         t.start()
         birds.append(t)
 
