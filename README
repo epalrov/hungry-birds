@@ -4,7 +4,7 @@ description:    Examples of multi-thread and multi-process applications.
 
                 A typical producer/consumer problem implemented with the shared
 		memory model using different programming languages (C, C++,
-                Java, ...).
+                Java, Python, ...).
 
 build:          GNU Autotools are used as build system for the C and C++
                 implementations:
