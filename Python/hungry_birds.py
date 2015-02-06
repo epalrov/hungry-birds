@@ -23,8 +23,8 @@ def parent_bird():
                 print " + parent bird brings", worms, "worms\n"
                 for i in range(NUM_WORMS):
                     any.release()
-            except:
-                print " x Exception!\n"
+            except Exception as e:
+                    print e.message
 
 def baby_bird(id):
     global worms
@@ -40,8 +40,8 @@ def baby_bird(id):
                     print " - baby bird", id, "eats (dish:", worms, "worms)" \
                         " and screams\n"
                     empty.release()
-            except:
-                print " x Exception!\n"
+            except Exception as e:
+                    print e.message
 
 if __name__ == "__main__":
 
