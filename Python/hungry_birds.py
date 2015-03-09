@@ -34,9 +34,9 @@ def baby_bird(id):
         with lock:
             worms = worms - 1
             try:
-                if worms :
+                if worms:
                     print " - baby bird", id, "eats (dish:", worms, "worms)"
-                else :
+                else:
                     print " - baby bird", id, "eats (dish:", worms, "worms)" \
                         " and screams\n"
                     empty.release()

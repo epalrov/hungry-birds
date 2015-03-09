@@ -13,65 +13,68 @@ import random
 NUM_BIRDS = 7
 NUM_WORMS = 13
 
-
-class parent_bird(threading.Thread):
+class HungryBirds(object):
     def __init__(self):
+
+        self._worms = NUM_WORMS
+        self._lock = threading.Lock()
+        self._empty = threading.Semaphore(0)
+        self._any = threading.Semaphore(NUM_WORMS)
+        print "\n + intitial dish:", self._worms, "worms\n"
+
+        t = HungryBirdsParent(self)
+        t.start()
+        b = []
+        b.append(t)
+
+        for i in range(NUM_BIRDS):
+            t = HungryBirdsBaby(self, i)
+            t.start()
+            b.append(t)
+
+        for t in b:
+            t.join()
+
+class HungryBirdsParent(threading.Thread):
+    def __init__(self, hungry):
+        self.__hungry = hungry
         threading.Thread.__init__(self)
     
     def run(self):
-        global worms
         while True:
-            empty.acquire()
-            with lock:
+            self.__hungry._empty.acquire()
+            with self.__hungry._lock:
                 try:
-                    worms = NUM_WORMS
-                    print " + parent bird brings", worms, "worms\n"
+                    self.__hungry._worms = NUM_WORMS
+                    print " + parent bird brings", self.__hungry._worms, "worms\n"
                     for i in range(NUM_WORMS):
-                        any.release()
+                        self.__hungry._any.release()
                 except Exception as e:
                     print e.message
 
-class baby_bird(threading.Thread):
-    def __init__(self, id):
+class HungryBirdsBaby(threading.Thread):
+    def __init__(self, hungry, i):
+        self.__hungry = hungry
+        self.__id = i
         threading.Thread.__init__(self)
-        self.id = id
 
     def run(self):
-        global worms
         while True:
             time.sleep(random.random() * NUM_BIRDS/NUM_WORMS)
-            any.acquire()
-            with lock:
-                worms = worms - 1
+            self.__hungry._any.acquire()
+            with self.__hungry._lock:
+                self.__hungry._worms = self.__hungry._worms - 1
                 try:
-                    if worms :
-                        print " - baby bird", self.id, "eats (dish:", worms, "worms)"
-                    else :
-                        print " - baby bird", self.id, "eats (dish:", worms, "worms)" \
-                            " and screams\n"
-                        empty.release()
+                    if self.__hungry._worms:
+                        print " - baby bird", self.__id, "eats (dish:", \
+                            self.__hungry._worms, "worms)"
+                    else:
+                        print " - baby bird", self.__id, "eats (dish:", \
+                            self.__hungry._worms, "worms) and screams\n"
+                        self.__hungry._empty.release()
                 except Exception as e:
                     print e.message
 
 if __name__ == "__main__":
-
-    birds = []
-    worms = NUM_WORMS
-    print "\n + intitial dish:", worms, "worms\n"
-
-    lock = threading.Lock()
-    empty = threading.Semaphore(0)
-    any = threading.Semaphore(NUM_WORMS)
-
-    t = parent_bird()
-    t.start()
-    birds.append(t)
-
-    for i in range(NUM_BIRDS):
-        t = baby_bird(i)
-        t.start()
-        birds.append(t)
-
-    for t in birds:
-        t.join()
+    HungryBirds()
 
