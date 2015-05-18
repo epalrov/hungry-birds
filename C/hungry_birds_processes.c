@@ -71,7 +71,7 @@ void *parent_bird(void *arg)
 
 void *baby_bird(void *arg)
 {
-	srand((int)arg);
+	srand((intptr_t)arg);
 	setbuf(stdout, NULL);
 	while (1) {
 		usleep(rand() % ((1000000*NUM_BIRDS)/NUM_WORMS + 1));
@@ -80,11 +80,11 @@ void *baby_bird(void *arg)
 		(shm->worms)--;
 		if (shm->worms != 0) {
 			printf(" - baby bird %d eats (dish: %d worms)\n",
-				(int)arg, shm->worms);
+				(int)(intptr_t)arg, shm->worms);
 			sem_post(lock);
 		} else {
 			printf(" - baby bird %d eats (dish: %d worms)"
-				" and screams\n\n", (int)arg, shm->worms);
+				" and screams\n\n", (int)(intptr_t)arg, shm->worms);
 			sem_post(lock);
 			sem_post(empty);
 		}
@@ -133,12 +133,12 @@ int main(int argc, char *argv[])
 		case -1: /* error */
 			goto err6;
 		case 0: /* childs */
-			baby_bird((void *)i);
+			baby_bird((void *)(intptr_t)i);
 		default: /* parent */
 			break;
 		}
 	}
-	parent_bird((void *)0) ;
+	parent_bird((void *)0);
     
 err6:
 	while(--i)
