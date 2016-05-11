@@ -9,8 +9,9 @@ description:    Examples of multi-thread and multi-process applications.
 build:          GNU Autotools are used as build system for the C and C++
                 implementations:
                  - autoreconf && ./configure && make
-                Apache Ant is used as build system for the Java implementation:
-                 - ant build
+                Apache Maven is used as build system for the Java based
+                implementations:
+                 - mvn clean install
 
 author:         Paolo Rovelli
 contact:        paolorovelli@yahoo.it

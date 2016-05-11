@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation=
+          "http://www.springframework.org/schema/beans
+           classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           classpath:org/springframework/beans/factory/xml/spring-context-3.0.xsd">
+
+    <bean id="hungryBirdsEnv"
+          class="org.epalrov.hungrybirds.HungryBirdsEnv"
+          scope="prototype">
+	<constructor-arg type="int" value="13"/>
+	<constructor-arg type="int" value="7"/>
+    </bean>
+
+    <bean id="hungryBirdsBaby"
+          class="org.epalrov.hungrybirds.HungryBirdsBabyFactory"
+          factory-method="newInstance"
+          scope="prototype">
+	<constructor-arg type="org.epalrov.hungrybirds.HungryBirdsEnv" ref="hungryBirdsEnv"/>
+	<constructor-arg type="int" value="0"/>
+    </bean>
+
+    <bean id="hungryBirdsParent"
+          class="org.epalrov.hungrybirds.HungryBirdsParentFactory"
+          factory-method="newInstance"
+          scope="prototype">
+	<constructor-arg type="org.epalrov.hungrybirds.HungryBirdsEnv" ref="hungryBirdsEnv"/>
+    </bean>
+
+</beans>
